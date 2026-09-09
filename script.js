@@ -12,30 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('open')));
   }
 
-  const enquiryForm = document.getElementById('enquiryForm');
-  if (enquiryForm) {
-    enquiryForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const name = document.getElementById('name')?.value.trim() || '';
-      const phone = document.getElementById('phone')?.value.trim() || '';
-      const service = document.getElementById('service')?.value || '';
-      const message = document.getElementById('message')?.value.trim() || '';
-      const text = `नमस्कार AK इलेक्ट्रिशियन,%0A%0Aनाव: ${encodeURIComponent(name)}%0Aमोबाईल: ${encodeURIComponent(phone)}%0Aसेवा: ${encodeURIComponent(service)}%0Aमाहिती: ${encodeURIComponent(message)}`;
-      window.open(`https://wa.me/917775940775?text=${text}`, '_blank', 'noopener');
-    });
-  }
-
-  document.querySelectorAll('.service-grid article').forEach(card => {
-    const existing = card.querySelector('.service-enquiry');
-    if (existing) {
-      const title = card.querySelector('h3')?.textContent.trim() || '';
-      existing.href = `https://wa.me/917775940775?text=${encodeURIComponent(`नमस्कार AK इलेक्ट्रिशियन, मला "${title}" सेवेबद्दल माहिती/कोटेशन हवे आहे.`)}`;
-      existing.target = '_blank';
-      existing.rel = 'noopener';
-      existing.style.cssText = 'display:inline-block;margin-top:18px;padding:9px 12px;border-radius:9px;background:#19a65b;color:#fff!important;font-size:11px;font-weight:900;position:relative;z-index:3;';
-    }
-  });
-
   // Open Images gallery on the home page.
   const gallery = document.getElementById('imageGallery');
   const openGallery = document.querySelector('.open-gallery');
@@ -61,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.key === 'Escape') hideGallery();
   });
 
-  // Add the gallery styling without changing the existing site layout.
   if (gallery && !document.getElementById('galleryStyles')) {
     const style = document.createElement('style');
     style.id = 'galleryStyles';
