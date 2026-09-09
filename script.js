@@ -30,4 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => backTop.classList.toggle('show', window.scrollY > 500), { passive: true });
     backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
+
+  // Home page receipt button
+  if (location.pathname.endsWith('/') || location.pathname.endsWith('/index.html') || location.pathname.endsWith('/Ak-Patil-Udyogsamuh')) {
+    const receiptButton = document.createElement('a');
+    receiptButton.href = 'receipt.html';
+    receiptButton.textContent = '🧾 पावती';
+    receiptButton.setAttribute('aria-label', 'पावती तयार करा');
+    receiptButton.style.cssText = 'position:fixed;right:16px;bottom:76px;z-index:9999;display:flex;align-items:center;justify-content:center;padding:12px 18px;background:#111;color:#fff;text-decoration:none;border-radius:12px;font-weight:800;box-shadow:0 8px 24px #0004;font-size:15px;';
+    document.body.appendChild(receiptButton);
+  }
 });
