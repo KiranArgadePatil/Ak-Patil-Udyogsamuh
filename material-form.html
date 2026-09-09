@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>मटेरियल फॉर्म | AK इलेक्ट्रिशियन</title>
+<meta name="description" content="AK इलेक्ट्रिशियन मटेरियल फॉर्म — साहित्य, संख्या आणि साईज निवडा व WhatsApp वर चौकशी पाठवा.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="material-form-page">
+<header class="site-header"><nav class="navbar">
+<a href="index.html" class="brand-wrap"><span class="brand-logo"><span>AK</span><i>⚡</i></span><span><b>AK इलेक्ट्रिशियन</b><small>मटेरियल फॉर्म</small></span></a>
+<a class="back-link" href="index.html">← होम</a>
+</nav></header>
+<main class="section">
+<div class="section-heading"><span class="eyebrow">MATERIAL REQUEST</span><h1>मटेरियल फॉर्म</h1><p>ग्राहक स्वतः <strong>साहित्य + संख्या + साईज</strong> सेट करू शकतो. अनेक वस्तू एकत्र निवडा.</p></div>
+<div class="material-form-layout">
+<section class="material-builder">
+<div class="form-row"><div><label>मटेरियल</label><select id="material"><option value="">-- मटेरियल निवडा --</option><option>1.0 sq.mm वायर</option><option>1.5 sq.mm वायर</option><option>2.5 sq.mm वायर</option><option>4 sq.mm वायर</option><option>6 sq.mm वायर</option><option>10 sq.mm वायर</option><option>16 sq.mm वायर</option><option>25 sq.mm वायर</option><option>MCB</option><option>DB Box</option><option>Switch</option><option>Socket</option><option>Modi Pipe LMS</option><option>Modi Pipe MMS</option><option>25 mm Junction Box</option><option>Fan</option><option>LED Light</option><option>Contactor</option><option>Relay</option><option>Starter</option><option>Capacitor</option><option>APFC Panel</option><option>LT Panel</option><option>Earthing Material</option><option>Solar Panel</option><option>Inverter</option><option>CCTV Camera</option><option>इतर</option></select></div><div><label>साईज</label><input id="size" placeholder="उदा. 25 mm / 32A / 90W"></div></div>
+<div class="form-row"><div><label>संख्या / Quantity</label><input id="qty" type="number" min="1" value="1" inputmode="numeric"></div><div><label>युनिट</label><select id="unit"><option>Nos / नग</option><option>Meter / मीटर</option><option>Box / बॉक्स</option><option>Roll / रोल</option><option>Set / सेट</option><option>Kg / किलो</option><option>Pair / जोडी</option></select></div></div>
+<div><label>टीप / Specification</label><input id="note" placeholder="Brand, colour, model किंवा इतर माहिती"></div>
+<button class="add-material" id="addMaterial" type="button">＋ यादीमध्ये मटेरियल जोडा</button>
+<div class="builder-tip">💡 उदाहरण: <b>2.5 sq.mm वायर — 100 Meter</b> किंवा <b>MCB — 5 Nos — 32A</b></div>
+</section>
+<section class="selected-materials">
+<div class="selected-head"><h2>तुमची मटेरियल यादी</h2><span id="itemCount">0 वस्तू</span></div>
+<div id="emptyState" class="empty-state">अजून मटेरियल जोडलेले नाही.<br><small>वरून मटेरियल, साईज आणि संख्या निवडा.</small></div>
+<div id="materialItems"></div>
+<div class="form-summary"><span>एकूण वस्तू</span><strong id="totalQty">0</strong></div>
+<button class="send-material" id="sendMaterial" type="button">💬 WhatsApp वर मटेरियल चौकशी पाठवा</button>
+</section>
+</div>
+</main>
+<footer><div><b>AK Patil उद्योगसमूह | AK इलेक्ट्रिशियन</b><p>विश्वास तुमचा, सेवा आमची!</p></div><span>📞 7775940775</span></footer>
+<script>
+const items=[];
+const $=id=>document.getElementById(id);
+function render(){
+  const box=$("materialItems"); box.innerHTML=''; $("emptyState").style.display=items.length?'none':'block';
+  items.forEach((x,i)=>{const el=document.createElement('div');el.className='material-row';el.innerHTML=`<div class="material-no">${i+1}</div><div class="material-info"><b>${x.material}</b><span>${x.size||'साईज दिलेली नाही'} • ${x.qty} ${x.unit}${x.note?' • '+x.note:''}</span></div><button type="button" aria-label="काढा" onclick="removeItem(${i})">×</button>`;box.appendChild(el)});
+  $("itemCount").textContent=items.length+' वस्तू'; $("totalQty").textContent=items.reduce((s,x)=>s+Number(x.qty),0);
+}
+window.removeItem=i=>{items.splice(i,1);render()};
+$("addMaterial").onclick=()=>{const material=$("material").value;if(!material){alert('कृपया मटेरियल निवडा.');return}const qty=Number($("qty").value);if(!qty||qty<1){alert('कृपया संख्या 1 किंवा त्यापेक्षा जास्त द्या.');return}items.push({material,size:$("size").value.trim(),qty,unit:$("unit").value,note:$("note").value.trim()});$("material").value='';$("size").value='';$("qty").value=1;$("unit").value='Nos / नग';$("note").value='';render()};
+$("sendMaterial").onclick=()=>{if(!items.length){alert('कृपया आधी मटेरियल यादीमध्ये जोडा.');return}let text='नमस्कार AK इलेक्ट्रिशियन, मला खालील मटेरियलची चौकशी करायची आहे:%0A%0A';items.forEach((x,i)=>{text+=`${i+1}. ${x.material} | संख्या: ${x.qty} ${x.unit} | साईज: ${x.size||'नमूद नाही'}${x.note?' | टीप: '+x.note:''}%0A`});text+=`%0Aएकूण वस्तू: ${items.length}%0Aएकूण संख्या: ${items.reduce((s,x)=>s+Number(x.qty),0)}`;window.open('https://wa.me/917775940775?text='+encodeURIComponent(decodeURIComponent(text)),'_blank')};
+render();
+</script>
+</body>
+</html>
