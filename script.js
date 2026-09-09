@@ -25,6 +25,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Services: make every service card actionable with a direct WhatsApp enquiry.
+  const serviceCards = document.querySelectorAll('.service-grid article');
+  serviceCards.forEach(card => {
+    const title = card.querySelector('h3')?.textContent.trim();
+    if (!title) return;
+    if (card.querySelector('.service-action')) return;
+
+    const action = document.createElement('a');
+    action.className = 'service-action';
+    action.href = `https://wa.me/917775940775?text=${encodeURIComponent(`नमस्कार AK इलेक्ट्रिशियन, मला "${title}" सेवेबद्दल माहिती/कोटेशन हवे आहे.`)}`;
+    action.target = '_blank';
+    action.rel = 'noopener';
+    action.textContent = '💬 WhatsApp वर चौकशी करा →';
+    action.setAttribute('aria-label', `${title} सेवेसाठी WhatsApp चौकशी`);
+    action.style.cssText = 'display:inline-block;margin-top:18px;padding:9px 12px;border-radius:9px;background:#19a65b;color:#fff!important;font-size:11px;font-weight:900;position:relative;z-index:3;';
+    card.appendChild(action);
+  });
+
   const backTop = document.querySelector('.back-top');
   if (backTop) {
     window.addEventListener('scroll', () => backTop.classList.toggle('show', window.scrollY > 500), { passive: true });
