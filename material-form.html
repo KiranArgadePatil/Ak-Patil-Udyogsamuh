@@ -4,8 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>मटेरियल फॉर्म | AK इलेक्ट्रिशियन</title>
-<meta name="description" content="AK इलेक्ट्रिशियन मटेरियल फॉर्म — साहित्य, संख्या आणि साईज निवडा व WhatsApp वर चौकशी पाठवा.">
+<meta name="description" content="AK इलेक्ट्रिशियन — 79 इलेक्ट्रिकल मटेरियल निवडा, संख्या सेट करा आणि WhatsApp वर चौकशी पाठवा.">
 <link rel="stylesheet" href="style.css">
+<style>
+.material-grid{display:grid;gap:10px;margin-top:16px}.material-card{display:grid;grid-template-columns:34px 1fr 92px;gap:10px;align-items:center;padding:12px;border:1px solid #ddd;border-radius:12px;background:#fff}.material-card input[type=checkbox]{width:20px;height:20px}.material-info b{display:block}.material-info span{font-size:12px;color:#666}.material-card .qty{width:80px;padding:8px;border:1px solid #ccc;border-radius:8px}.material-card:not(.selected) .qty{opacity:.45}.selected-materials{margin-top:20px}.selected-row{display:grid;grid-template-columns:34px 1fr 80px;gap:8px;align-items:center;padding:10px;border-bottom:1px solid #eee}.selected-row input{width:65px;padding:7px;border:1px solid #ccc;border-radius:7px}.form-summary{display:flex;justify-content:space-between;padding:16px 0;font-size:18px}.send-material{width:100%;padding:13px;border:0;border-radius:10px;cursor:pointer}.select-all-row{display:flex;gap:10px;align-items:center;padding:12px 0;font-weight:700}.material-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}.material-actions button{padding:10px 14px;border-radius:8px;border:1px solid #ccc;background:#fff;cursor:pointer}.search-material{width:100%;padding:12px;border:1px solid #ccc;border-radius:9px;margin-top:10px}
+</style>
 </head>
 <body class="material-form-page">
 <header class="site-header"><nav class="navbar">
@@ -13,37 +16,49 @@
 <a class="back-link" href="index.html">← होम</a>
 </nav></header>
 <main class="section">
-<div class="section-heading"><span class="eyebrow">MATERIAL REQUEST</span><h1>मटेरियल फॉर्म</h1><p>ग्राहक स्वतः <strong>साहित्य + संख्या + साईज</strong> सेट करू शकतो. अनेक वस्तू एकत्र निवडा.</p></div>
-<div class="material-form-layout">
+<div class="section-heading"><span class="eyebrow">MATERIAL REQUEST</span><h1>मटेरियल फॉर्म</h1><p><strong>79 मटेरियल</strong> मधून फक्त आवश्यक वस्तू Select करा आणि त्यांची Quantity भरा.</p></div>
 <section class="material-builder">
-<div class="form-row"><div><label>मटेरियल</label><select id="material"><option value="">-- मटेरियल निवडा --</option><option>1.0 sq.mm वायर</option><option>1.5 sq.mm वायर</option><option>2.5 sq.mm वायर</option><option>4 sq.mm वायर</option><option>6 sq.mm वायर</option><option>10 sq.mm वायर</option><option>16 sq.mm वायर</option><option>25 sq.mm वायर</option><option>MCB</option><option>DB Box</option><option>Switch</option><option>Socket</option><option>Modi Pipe LMS</option><option>Modi Pipe MMS</option><option>25 mm Junction Box</option><option>Fan</option><option>LED Light</option><option>Contactor</option><option>Relay</option><option>Starter</option><option>Capacitor</option><option>APFC Panel</option><option>LT Panel</option><option>Earthing Material</option><option>Solar Panel</option><option>Inverter</option><option>CCTV Camera</option><option>इतर</option></select></div><div><label>साईज</label><input id="size" placeholder="उदा. 25 mm / 32A / 90W"></div></div>
-<div class="form-row"><div><label>संख्या / Quantity</label><input id="qty" type="number" min="1" value="1" inputmode="numeric"></div><div><label>युनिट</label><select id="unit"><option>Nos / नग</option><option>Meter / मीटर</option><option>Box / बॉक्स</option><option>Roll / रोल</option><option>Set / सेट</option><option>Kg / किलो</option><option>Pair / जोडी</option></select></div></div>
-<div><label>टीप / Specification</label><input id="note" placeholder="Brand, colour, model किंवा इतर माहिती"></div>
-<button class="add-material" id="addMaterial" type="button">＋ यादीमध्ये मटेरियल जोडा</button>
-<div class="builder-tip">💡 उदाहरण: <b>2.5 sq.mm वायर — 100 Meter</b> किंवा <b>MCB — 5 Nos — 32A</b></div>
+<input id="search" class="search-material" placeholder="🔎 मटेरियल शोधा...">
+<div class="select-all-row"><input id="selectAll" type="checkbox"><label for="selectAll">सर्व 79 मटेरियल Select करा</label></div>
+<div id="materialGrid" class="material-grid"></div>
+<div class="material-actions"><button type="button" id="clearAll">सर्व Unselect करा</button></div>
 </section>
 <section class="selected-materials">
-<div class="selected-head"><h2>तुमची मटेरियल यादी</h2><span id="itemCount">0 वस्तू</span></div>
-<div id="emptyState" class="empty-state">अजून मटेरियल जोडलेले नाही.<br><small>वरून मटेरियल, साईज आणि संख्या निवडा.</small></div>
+<div class="selected-head"><h2>निवडलेले मटेरियल</h2><span id="itemCount">0 वस्तू</span></div>
+<div id="emptyState" class="empty-state">अजून मटेरियल Select केलेले नाही.<br><small>वरील यादीतून आवश्यक मटेरियल Select करा.</small></div>
 <div id="materialItems"></div>
-<div class="form-summary"><span>एकूण वस्तू</span><strong id="totalQty">0</strong></div>
+<div class="form-summary"><span>एकूण Quantity</span><strong id="totalQty">0</strong></div>
 <button class="send-material" id="sendMaterial" type="button">💬 WhatsApp वर मटेरियल चौकशी पाठवा</button>
 </section>
-</div>
 </main>
 <footer><div><b>AK Patil उद्योगसमूह | AK इलेक्ट्रिशियन</b><p>विश्वास तुमचा, सेवा आमची!</p></div><span>📞 7775940775</span></footer>
 <script>
-const items=[];
-const $=id=>document.getElementById(id);
-function render(){
-  const box=$("materialItems"); box.innerHTML=''; $("emptyState").style.display=items.length?'none':'block';
-  items.forEach((x,i)=>{const el=document.createElement('div');el.className='material-row';el.innerHTML=`<div class="material-no">${i+1}</div><div class="material-info"><b>${x.material}</b><span>${x.size||'साईज दिलेली नाही'} • ${x.qty} ${x.unit}${x.note?' • '+x.note:''}</span></div><button type="button" aria-label="काढा" onclick="removeItem(${i})">×</button>`;box.appendChild(el)});
-  $("itemCount").textContent=items.length+' वस्तू'; $("totalQty").textContent=items.reduce((s,x)=>s+Number(x.qty),0);
+const materials=[
+[1,'मोदी पाईप LMS','Modi Pipe LMS','25 mm'],[2,'मोदी पाईप MMS/LMS','Modi Pipe MMS/LMS','20 mm'],[3,'बेंड','Bend','25/20 mm'],[4,'1 वे जंक्शन','1 Way Junction','25/20 mm'],[5,'2 वे जंक्शन','2 Way Junction','25/20 mm'],[6,'3 वे जंक्शन','3 Way Junction','25/20 mm'],[7,'4 वे जंक्शन','4 Way Junction','25/20 mm'],[8,'Y जंक्शन','Y Junction','25/20 mm'],[9,'फॅन बॉक्स','Fan Box','—'],[10,'सोल्युशन','PVC Pipe Solution','—'],[11,'फॅन बॉक्स राउंड प्लेट','Fan Box Round Plate','—'],[12,'राउंड प्लेट','Round Plate','—'],[13,'पट्टी','PVC Batten','—'],[14,'पट्टी 1 वे जंक्शन','Batten 1 Way Junction','—'],[15,'पट्टी 2 वे जंक्शन','Batten 2 Way Junction','—'],[16,'पट्टी 3 वे जंक्शन','Batten 3 Way Junction','—'],[17,'पट्टी 4 वे जंक्शन','Batten 4 Way Junction','—'],[18,'स्क्रू','Screw','1 inch'],[19,'स्क्रू','Screw','1.5 inch'],[20,'स्क्रू','Screw','2.5 inch'],[21,'स्क्रू','Screw','4 inch'],[22,'रॉवळ प्लग','Rawl Plug','—'],[23,'इंडिकेटर','Indicator','230V'],[24,'3 पिन सॉकेट','3 Pin Socket','6A'],[25,'3 पिन सॉकेट','3 Pin Socket','16A'],[26,'5 पिन सॉकेट','5 Pin Socket','6A'],[27,'5 पिन सॉकेट','5 Pin Socket','16A'],[28,'5 पिन सॉकेट','5 Pin Socket','20A'],[29,'प्लग टॉप','Plug Top','3A'],[30,'प्लग टॉप','Plug Top','5A'],[31,'डिमर','Dimmer','—'],[32,'MCB','MCB','6A'],[33,'MCB','MCB','10A'],[34,'MCB','MCB','16A'],[35,'MCB','MCB','20A'],[36,'MCB','MCB','25A'],[37,'MCB','MCB','32A'],[38,'MCB','MCB','40A'],[39,'MCB बॉक्स','MCB Box','2/4/6/8/10-12 Way'],[40,'व्हायर होल्डर','Wire Holder / Cable Holder / L-Angle Holder / Button Holder','—'],[41,'बटन','Switch / Button','6A'],[42,'बटन','Switch / Button','10A'],[43,'बटन','Switch / Button','16A'],[44,'बटन','Switch / Button','20A'],[45,'1 मॉड्युल प्लेट','1 Module Plate','1 Module'],[46,'2 मॉड्युल प्लेट','2 Module Plate','2 Module'],[47,'3 मॉड्युल प्लेट','3 Module Plate','3 Module'],[48,'4 मॉड्युल प्लेट','4 Module Plate','4 Module'],[49,'6 मॉड्युल प्लेट','6 Module Plate','6 Module'],[50,'8 मॉड्युल प्लेट','8 Module Plate','8 Module'],[51,'12 मॉड्युल प्लेट','12 Module Plate','12 Module'],[52,'16 मॉड्युल प्लेट','16 Module Plate','16 Module'],[53,'बॉक्स','Modular Box','2/3/4/6/8/12 Module'],[54,'सिंगल पोल MCB','Single Pole MCB','6–63A'],[55,'डबल पोल MCB','Double Pole MCB','6–63A'],[56,'RCCB','RCCB','2P, 25/40/63A'],[57,'RCCB','RCCB','4P, 25/40/63A'],[58,'RCBO','RCBO','6–40A'],[59,'SP MCB बॉक्स','SP MCB Box','2/4 Way'],[60,'DP MCB बॉक्स','DP MCB Box','2/4 Way'],[61,'मेन स्विच','Main Switch','32A'],[62,'मेन स्विच','Main Switch','40A'],[63,'मेन स्विच','Main Switch','63A'],[64,'आयसोलेटर','Isolator','2P'],[65,'आयसोलेटर','Isolator','4P'],[66,'फ्यूज','Fuse','5/10/16/32A'],[67,'फ्यूज होल्डर','Fuse Holder','5–32A'],[68,'फॅन रेग्युलेटर','Fan Regulator','1.5A'],[69,'बेल पुश','Bell Push','6A'],[70,'डोअर बेल','Door Bell','230V'],[71,'वायर','Wire','1 sq.mm'],[72,'वायर','Wire','1.5 sq.mm'],[73,'वायर','Wire','2.5 sq.mm'],[74,'वायर','Wire','4 sq.mm'],[75,'वायर','Wire','6 sq.mm'],[76,'वायर','Wire','10 sq.mm'],[77,'वायर','Wire','16 sq.mm'],[78,'सर्व्हिस वायर','Service Wire','2 Core'],[79,'सर्व्हिस केबल','Service Cable','2 Core']
+];
+const selected=new Map(); const $=id=>document.getElementById(id);
+function renderGrid(filter=''){
+ const grid=$("materialGrid"); grid.innerHTML=''; const q=filter.toLowerCase();
+ materials.filter(m=>(m[1]+' '+m[2]+' '+m[3]).toLowerCase().includes(q)).forEach(m=>{
+  const el=document.createElement('div'); el.className='material-card'+(selected.has(m[0])?' selected':'');
+  el.innerHTML=`<input type="checkbox" ${selected.has(m[0])?'checked':''} aria-label="${m[1]}" data-id="${m[0]}"><div class="material-info"><b>${m[0]}. ${m[1]}</b><span>${m[2]} • ${m[3]}</span></div><input class="qty" type="number" min="1" value="${selected.get(m[0])||1}" ${selected.has(m[0])?'':'disabled'} data-qty="${m[0]}">`;
+  grid.appendChild(el);
+ });
+ grid.querySelectorAll('[data-id]').forEach(cb=>cb.onchange=()=>{const id=Number(cb.dataset.id);if(cb.checked) selected.set(id,Number(grid.querySelector(`[data-qty="${id}"]`).value)||1); else selected.delete(id);renderGrid($('search').value);renderSelected()});
+ grid.querySelectorAll('[data-qty]').forEach(inp=>inp.oninput=()=>{const id=Number(inp.dataset.qty);if(selected.has(id)) selected.set(id,Math.max(1,Number(inp.value)||1));renderSelected()});
+ updateSelectAll();
 }
-window.removeItem=i=>{items.splice(i,1);render()};
-$("addMaterial").onclick=()=>{const material=$("material").value;if(!material){alert('कृपया मटेरियल निवडा.');return}const qty=Number($("qty").value);if(!qty||qty<1){alert('कृपया संख्या 1 किंवा त्यापेक्षा जास्त द्या.');return}items.push({material,size:$("size").value.trim(),qty,unit:$("unit").value,note:$("note").value.trim()});$("material").value='';$("size").value='';$("qty").value=1;$("unit").value='Nos / नग';$("note").value='';render()};
-$("sendMaterial").onclick=()=>{if(!items.length){alert('कृपया आधी मटेरियल यादीमध्ये जोडा.');return}let text='नमस्कार AK इलेक्ट्रिशियन, मला खालील मटेरियलची चौकशी करायची आहे:%0A%0A';items.forEach((x,i)=>{text+=`${i+1}. ${x.material} | संख्या: ${x.qty} ${x.unit} | साईज: ${x.size||'नमूद नाही'}${x.note?' | टीप: '+x.note:''}%0A`});text+=`%0Aएकूण वस्तू: ${items.length}%0Aएकूण संख्या: ${items.reduce((s,x)=>s+Number(x.qty),0)}`;window.open('https://wa.me/917775940775?text='+encodeURIComponent(decodeURIComponent(text)),'_blank')};
-render();
+function renderSelected(){const box=$("materialItems");box.innerHTML='';$('emptyState').style.display=selected.size?'none':'block';let total=0;
+ [...selected.entries()].forEach(([id,qty],i)=>{const m=materials.find(x=>x[0]===id);total+=qty;const el=document.createElement('div');el.className='selected-row';el.innerHTML=`<div>${i+1}</div><div><b>${m[1]}</b><small style="display:block;color:#666">${m[2]} • ${m[3]}</small></div><input type="number" min="1" value="${qty}" data-selected-qty="${id}">`;box.appendChild(el)});
+ box.querySelectorAll('[data-selected-qty]').forEach(inp=>inp.oninput=()=>{const id=Number(inp.dataset.selectedQty);selected.set(id,Math.max(1,Number(inp.value)||1));renderSelected();renderGrid($('search').value)});
+ $('itemCount').textContent=selected.size+' वस्तू';$('totalQty').textContent=total;
+}
+function updateSelectAll(){$('selectAll').checked=selected.size===materials.length;$('selectAll').indeterminate=selected.size>0&&selected.size<materials.length}
+$('selectAll').onchange=()=>{if($('selectAll').checked)materials.forEach(m=>selected.set(m[0],1));else selected.clear();renderGrid($('search').value);renderSelected()};
+$('clearAll').onclick=()=>{selected.clear();$('selectAll').checked=false;renderGrid($('search').value);renderSelected()};
+$('search').oninput=()=>renderGrid($('search').value);
+$('sendMaterial').onclick=()=>{if(!selected.size){alert('कृपया आधी मटेरियल Select करा.');return}let text='नमस्कार AK इलेक्ट्रिशियन, मला खालील मटेरियलची चौकशी करायची आहे:\n\n';[...selected.entries()].forEach(([id,qty],i)=>{const m=materials.find(x=>x[0]===id);text+=`${i+1}. ${m[1]} | ${m[2]} | साईज: ${m[3]} | संख्या: ${qty}\n`});text+=`\nनिवडलेले मटेरियल: ${selected.size}\nएकूण Quantity: ${[...selected.values()].reduce((a,b)=>a+b,0)}`;window.open('https://wa.me/917775940775?text='+encodeURIComponent(text),'_blank')};
+renderGrid();renderSelected();
 </script>
 </body>
 </html>
