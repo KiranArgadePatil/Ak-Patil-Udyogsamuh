@@ -31,13 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
     backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
-  // Home page: Material List / Receipt shortcut
+  // Home page: Material List shortcut
   if (location.pathname.endsWith('/') || location.pathname.endsWith('/index.html') || location.pathname.endsWith('/Ak-Patil-Udyogsamuh')) {
-    const receiptButton = document.createElement('a');
-    receiptButton.href = 'receipt.html';
-    receiptButton.textContent = '🧾 मटेरियल लिस्ट';
-    receiptButton.setAttribute('aria-label', 'मटेरियल लिस्ट व पावती तयार करा');
-    receiptButton.style.cssText = 'position:fixed;right:16px;bottom:76px;z-index:9999;display:flex;align-items:center;justify-content:center;padding:12px 18px;background:#111;color:#fff;text-decoration:none;border-radius:12px;font-weight:800;box-shadow:0 8px 24px #0004;font-size:15px;';
-    document.body.appendChild(receiptButton);
+    const materialButton = document.createElement('a');
+    materialButton.href = 'material-form.html';
+    materialButton.textContent = '🧾 मटेरियल लिस्ट';
+    materialButton.setAttribute('aria-label', 'मटेरियल लिस्ट व मटेरियल फॉर्म उघडा');
+    materialButton.style.cssText = 'position:fixed;right:16px;bottom:76px;z-index:9999;display:flex;align-items:center;justify-content:center;padding:12px 18px;background:#111;color:#fff;text-decoration:none;border-radius:12px;font-weight:800;box-shadow:0 8px 24px #0004;font-size:15px;';
+    document.body.appendChild(materialButton);
   }
 });
