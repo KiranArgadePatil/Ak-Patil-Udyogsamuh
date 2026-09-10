@@ -12,6 +12,22 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('open')));
   }
 
+  // Service cards: tap a service to open its related photo/video page, not WhatsApp.
+  const serviceKeys = ['home','shop','industrial','solar','cctv','repair'];
+  const serviceCards = document.querySelectorAll('.service-grid a');
+  serviceCards.forEach((card, index) => {
+    if (index >= serviceKeys.length) return;
+    card.href = `service-gallery.html?service=${serviceKeys[index]}`;
+    card.removeAttribute('target');
+    card.removeAttribute('rel');
+    const action = card.querySelector('strong');
+    if (action) action.textContent = '📷 फोटो / ▶ व्हिडिओ पहा →';
+    card.addEventListener('click', event => {
+      event.preventDefault();
+      window.location.href = `service-gallery.html?service=${serviceKeys[index]}`;
+    });
+  });
+
   // Open Images gallery on the home page.
   const gallery = document.getElementById('imageGallery');
   const openGallery = document.querySelector('.open-gallery');
